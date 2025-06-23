@@ -27,5 +27,17 @@ public class ProductServiceImpl implements IFProductService {
         return new ArrayList<>();
     }
 
+    @Override
+    public void addProduct(Product product) {
+        // Logic to add a product to the database or any data source
+        try {
+            this.solrService.indexProduct(product);
+        } catch (Exception e) {
+            e.printStackTrace();
+            // Handle exceptions appropriately, maybe log them or rethrow as a custom exception
+        }
+    }
+
     // Additional methods for product-related operations can be added here
+    
 }

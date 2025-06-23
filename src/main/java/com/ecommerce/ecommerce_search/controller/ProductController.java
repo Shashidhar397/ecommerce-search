@@ -7,6 +7,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+
 
 @RestController
 @RequestMapping("/api/products")
@@ -25,10 +28,11 @@ public class ProductController {
          return productService.getAllProducts();
      }
 
-    // Example method to get a product by ID
-    // @GetMapping("/products/{id}")
-    // public Product getProductById(@PathVariable String id) {
-    //     return productService.getProductById(id);
-    // }
+     @PostMapping
+     public String postMethodName(@RequestBody Product product) {
+         this.productService.addProduct(product);
+         return "Successfully added product with ID: " + product.getId();
+     }
+     
 
 }

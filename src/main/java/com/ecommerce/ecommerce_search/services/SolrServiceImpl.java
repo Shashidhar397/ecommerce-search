@@ -4,9 +4,9 @@ import com.ecommerce.ecommerce_search.models.Product;
 import org.apache.solr.client.solrj.SolrClient;
 import org.apache.solr.client.solrj.SolrQuery;
 import org.apache.solr.client.solrj.SolrServerException;
-import org.apache.solr.client.solrj.impl.Http2SolrClient;
 import org.apache.solr.client.solrj.response.QueryResponse;
-import org.apache.solr.common.params.SolrParams;
+import org.apache.solr.client.solrj.response.UpdateResponse;
+import org.apache.solr.common.SolrInputDocument;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -22,7 +22,24 @@ public class SolrServiceImpl implements IFSolrService{
 
     @Override
     public boolean indexProduct(Product product) {
-        return false;
+        try {
+            SolrInputDocument doc = new SolrInputDocument();
+            doc.addField("name", product.getName());
+            doc.addField("description", product.getDescription());
+            doc.addField("price", product.getPrice());
+            doc.addField("product_uuid", product.getProduct_uuid());
+            doc.addField("category", product.getCategory());
+            // Add more fields as needed based on your Product model
+            UpdateResponse addResponse = solrClient.add("products", doc);
+            if (addResponse.getStatus() != 0) {
+                return false;
+            }
+            UpdateResponse commitResponse = solrClient.commit("products");
+            return commitResponse.getStatus() == 0;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 
     @Override

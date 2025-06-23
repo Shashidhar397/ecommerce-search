@@ -8,4 +8,6 @@ public interface IFProductService {
 
     public List<Product> getAllProducts();
 
+    public void addProduct(Product product);
+
 }
