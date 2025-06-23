@@ -1,6 +1,6 @@
 package com.ecommerce.ecommerce_search.controller;
 
-import com.ecommerce.ecommerce_search.models.ProductResponse;
+import com.ecommerce.ecommerce_search.models.Product;
 import com.ecommerce.ecommerce_search.services.IFProductService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,7 +21,7 @@ public class ProductController {
 
     // Example method to get all products
      @GetMapping
-     public List<ProductResponse> getAllProducts() {
+     public List<Product> getAllProducts() {
          return productService.getAllProducts();
      }
 

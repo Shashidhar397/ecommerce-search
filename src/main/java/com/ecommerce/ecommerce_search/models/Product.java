@@ -3,9 +3,10 @@ package com.ecommerce.ecommerce_search.models;
 import lombok.Data;
 
 @Data
-public class ProductResponse {
+public class Product {
 
     private Long id;
+    private String product_uuid;
     private String name;
     private String description;
     private String category;
