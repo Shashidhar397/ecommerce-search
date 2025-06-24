@@ -9,17 +9,17 @@ import java.util.List;
 @Service
 public class ProductServiceImpl implements IFProductService {
 
-    private final IFSolrService solrService;
+    private final IFSearchService searchService;
 
-    public ProductServiceImpl(IFSolrService solrService) {
-        this.solrService = solrService;
+    public ProductServiceImpl(IFSearchService searchService) {
+        this.searchService = searchService;
     }
 
     @Override
     public List<Product> getAllProducts() {
         // Logic to fetch all products from the database or any data source
         try {
-            this.solrService.searchProduct("*:*", 1, 10);
+            this.searchService.searchProduct("*:*", 1, 10);
         } catch (Exception e) {
             e.printStackTrace();
             // Handle exceptions appropriately, maybe log them or rethrow as a custom exception
@@ -31,7 +31,7 @@ public class ProductServiceImpl implements IFProductService {
     public void addProduct(Product product) {
         // Logic to add a product to the database or any data source
         try {
-            this.solrService.indexProduct(product);
+            this.searchService.indexProduct(product);
         } catch (Exception e) {
             e.printStackTrace();
             // Handle exceptions appropriately, maybe log them or rethrow as a custom exception
